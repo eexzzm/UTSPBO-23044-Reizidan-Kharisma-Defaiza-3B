@@ -10,13 +10,16 @@ int tempInt;
 String[] arrPesanan = new String[100];
 String[] arrKamar = new String[20];
 
-    void pesan (){
-        Scanner scanner = new Scanner(System.in); 
-        
+Scanner scanner = new Scanner(System.in);
+
+    void daftarNama(){
             System.out.println("Masukan nama anda.");
             System.out.print("Input = ");
             pNama = scanner.nextLine();
-            
+    }
+
+    void buatPesanan (){
+        
             do {
                 System.out.println("Masukan jumlah kamar yang ingin anda pesan.");
                 System.out.print("Input = ");
@@ -34,6 +37,7 @@ String[] arrKamar = new String[20];
                     cekKamar();
                     System.out.print("Input = ");
                     tempInt = scanner.nextInt();
+                    scanner.nextLine();
                     tempInt--;
                     
                     if (arrKamar[tempInt].equals("BOOKED")){
@@ -55,11 +59,9 @@ String[] arrKamar = new String[20];
             System.out.println("Format pengisian = (20 agustus 2024 - 22 agustus 2024)");
             System.out.print("Input = ");
             pTanggal = scanner.nextLine();
-            scanner.close();
-            
                 
-            arrPesananCounter++;
-            arrPesanan[arrPesananCounter] = "Nama = "+pNama+"\nJumlah Kamar\t"+pKamar+"\nTanggal\t= "+pTanggal+"\n";
+            ++arrPesananCounter;
+            arrPesanan[arrPesananCounter] = "Nama\t= "+pNama+"\nJumlah Kamar\t="+pKamar+"\nTanggal\t= "+pTanggal+"\n";
         }
     
     void resetKamar(){
@@ -72,14 +74,24 @@ String[] arrKamar = new String[20];
     
     
     void cekKamar(){
+        System.out.println("\tDaftar Nomo Kamar Hotel\n");
         int counter = 0;
-        System.out.println("Nomor kamar yang tersedia\n");
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5;j++){
                 System.out.print(arrKamar[counter++]);
                 System.out.print("\t");
             }
             System.out.println("");
+        }
+    }
+    
+    void detilPesanan(){
+            System.out.println("\tDETIL PESANAN\n");
+        for (int i = 0; i <= arrPesananCounter; i++) {
+            if (arrPesanan[i].contains(pNama)){
+                System.out.print(arrPesanan[i]);
+                System.out.println("");
+            }
         }
     }
 }
