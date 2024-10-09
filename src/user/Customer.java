@@ -1,15 +1,19 @@
 package user;
 import java.util.Scanner;
+import Data.Array;
 
 
 public class Customer implements Fitur {
 int pIntKamar, stokKamar = 20, arrPesananCounter = -1, tempInt, counter;
 public String pNama, pTanggal, pKamar;
-boolean status = false; //tanda keberhasilan booking kamar
+boolean status = false;
 String tempStr, noKamar;
-public String[] arrPesanan = new String[100];
-public String[] arrKamar = new String[20];
-public String[] arrOwnerKamar = new String[20];
+
+Array array;
+
+    public Customer(Array arr) {
+        this.array = arr;
+    }
 
 Scanner scanner = new Scanner(System.in);
 
@@ -40,28 +44,26 @@ Scanner scanner = new Scanner(System.in);
     // Menentukan nomor kamar
     while (counter < pIntKamar) {  // Loop sampai jumlah kamar yang dipesan terpenuhi
         cekKamar();
-        System.out.print("Masukan Nomor Kamar yang ingin anda pesan = ");
+        System.out.println("Masukan Nomor Kamar yang ingin anda pesan");
         System.out.print("Input = ");
         tempInt = scanner.nextInt();
         scanner.nextLine();
         tempInt--;  // Sesuaikan nomor kamar dengan indeks array (mulai dari 0)
 
-        if (arrKamar[tempInt].equals("BOOKED")) {
+        if (array.arrKamar[tempInt].equals("BOOKED")) {
             System.out.println("Maaf, nomor kamar yang Anda inginkan tidak tersedia saat ini.");
             System.out.println("Kami sarankan Anda memilih kamar lain yang masih tersedia.\n");
         } else {
-            // Kamar tersedia, tandai sebagai BOOKED dan simpan pemesanannya
-            arrKamar[tempInt] = "BOOKED";
-            arrOwnerKamar[tempInt] = pNama;
-            tempInt++;  // Kembalikan ke format aslinya (mulai dari 1)
+            array.arrKamar[tempInt] = "BOOKED";
+            array.arrOwnerKamar[tempInt] = pNama;
+            tempInt++; 
             
             if (counter < pIntKamar - 1) {
-                noKamar += tempInt + ", ";  // Tambah koma jika bukan kamar terakhir
+                noKamar += tempInt + ", "; 
             } else {
-                noKamar += tempInt;  // Kamar terakhir, tidak perlu koma
+                noKamar += tempInt;
             }
-            
-            counter++;  // Naikkan jumlah kamar yang sudah dipilih
+            counter++; 
         }
     }
 
@@ -73,17 +75,18 @@ Scanner scanner = new Scanner(System.in);
 
     // Simpan detail pesanan
     ++arrPesananCounter;
-    arrPesanan[arrPesananCounter] = "Nama\t\t= " + pNama + "\nJumlah Kamar\t= " + pKamar + "\nNomor Kamar\t= " + noKamar + "\nTanggal Reservasi\t= " + pTanggal + "\n";
+    array.arrPesanan[arrPesananCounter] = "Nama\t\t\t= " + pNama + "\nJumlah Kamar\t\t= " + pKamar + "\nNomor Kamar\t\t= " + noKamar + "\nTanggal Reservasi\t= " + pTanggal + "\n";
+    
 }
 
     
     public void resetKamar(){
-        for (int i = 0; i < arrKamar.length; i++) {
+        for (int i = 0; i < array.arrKamar.length; i++) {
             tempInt = i;    
             tempStr = Integer.toString(++tempInt);  
-            arrKamar[i] = tempStr;
-            arrOwnerKamar[i] = "";
-            arrPesanan[i] = "";
+            array.arrKamar[i] = tempStr;
+            array.arrOwnerKamar[i] = "";
+            array.arrPesanan[i] = "";
             }
         }
     
@@ -94,7 +97,7 @@ Scanner scanner = new Scanner(System.in);
         int counter = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5;j++){
-                System.out.print(arrKamar[counter++]);
+                System.out.print(array.arrKamar[counter++]);
                 System.out.print("\t");
             }
             System.out.println("");
@@ -104,13 +107,15 @@ Scanner scanner = new Scanner(System.in);
     public void detilPesanan(){
             System.out.println("\tDetil Reservasi\n");
         for (int i = 0; i <= arrPesananCounter; i++) {
-            if (arrPesanan[i].contains(pNama)){
-                System.out.print(arrPesanan[i]);
+            if (array.arrPesanan[i].contains(pNama)){
+                System.out.print(array.arrPesanan[i]);
                 System.out.println("");
                 status = true;
-                } else  {
-                System.out.println("Maaf, Reservasi atas nama "+pNama+" tidak ditemukan.");
-            }
+                }
         }
+        if (status == false){
+            System.out.println("Maaf reservasi atas nama "+pNama+" tidak ditemukan");
+        }
+        status = false;
     }
 }

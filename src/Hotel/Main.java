@@ -1,6 +1,7 @@
 package Hotel;
 import java.util.Scanner;
 import user.*;
+import Data.Array;
 
 public class Main {
     public int pilihan;
@@ -28,8 +29,9 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Admin admin = new Admin();
-        Customer customer = new Customer();
+        Array array = new Array();
+        Admin admin = new Admin(array);
+        Customer customer = new Customer(array);
         
         int pilihan = 0;
         
@@ -45,7 +47,6 @@ public class Main {
             pilihan = scanner.nextInt();
             scanner.nextLine();
             
-            // Jika input tidak valid (bukan 1 atau 2), beri pesan error
             if (pilihan != 1 && pilihan != 2) {
                 System.out.println("Pilihan tidak valid. Silakan masukkan 1 untuk Admin atau 2 untuk Customer.");
             }
@@ -53,6 +54,7 @@ public class Main {
         Main main = new Main(pilihan);
 
         if (main.administrator) {
+            System.out.println("Anda masuk sebagai Admin");
             while(pilihan != 0){
                 
             main.menu();
@@ -60,10 +62,8 @@ public class Main {
             System.out.println("0. Kembali");
             System.out.print("Input: ");
             
-            // Perbaiki dengan membaca input dan assign ke variabel pilihan
             pilihan = scanner.nextInt();
 
-            // Validasi input, dengan logika OR (||)
             if (pilihan > 4 || pilihan < 0) {
                 System.out.println("Input tidak valid, mohon pilih menu yang tersedia");
             } else {
@@ -90,10 +90,9 @@ public class Main {
             
             
         } else if (main.customer == true) {
+            System.out.println("Anda masuk sebagai Customer");
             
             while(pilihan != 0){
-            
-            System.out.println("Anda masuk sebagai Customer");
             main.menu();
             System.out.println("0. Kembali");
             System.out.print("Input: ");
@@ -119,12 +118,10 @@ public class Main {
                     case 0:
                         System.out.println("Kembali ke menu utama");
                         break;
+                        }
+                    }
                 }
             }
-            
-            }
         }
-    }
-
     }
 }

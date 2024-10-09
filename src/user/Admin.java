@@ -1,21 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package user;
+import Data.Array;
 
-/**
- *
- * @author SNSV
- */
 public class Admin extends Customer {
-
+    
+    public Admin(Array arr) {
+        super(arr);
+    }
+    
     @Override
     public void detilPesanan() {
         System.out.println("\tDetil Pesanan\n");
-        for (int i = 0; i <= arrPesananCounter; i++) {
-            System.out.print(arrPesanan[i]);
-            System.out.println("");
+        for (int i = 0; i < array.arrPesanan.length; i++) {
+            if (array.arrPesanan[i] != null) {
+                System.out.println(array.arrPesanan[i]);
+            }
         }
     }
 
@@ -26,39 +25,37 @@ public class Admin extends Customer {
         pNama = scanner.nextLine();
         super.detilPesanan();
 
-        // Gunakan variabel lokal untuk melacak apakah pesanan ditemukan
-        boolean found = false;
+        boolean ketemu = false;
 
         if (status) {
             System.out.println("Apakah anda yakin ingin menghapus Reservasi atas nama " + pNama + "?");
             System.out.println("(y/n)");
             System.out.print("Input : ");
             tempStr = scanner.nextLine();
-
-            // Perbandingan String menggunakan .equalsIgnoreCase()
+            
             if (tempStr.equalsIgnoreCase("y")) {
                 for (int i = 0; i <= arrPesananCounter; i++) {
-                    // Ubah perbandingan dengan .equals untuk kecocokan tepat
-                    if (arrPesanan[i].contains("Nama\t\t= " + pNama)) {
-                        found = true;
-                        // Hapus pesanan dengan menggeser elemen-elemen di belakangnya
+
+                    if (array.arrPesanan[i].contains("Nama\t\t= " + pNama)) {
+                        ketemu = true;
+                       
                         for (int j = i; j < arrPesananCounter; j++) {
-                            arrPesanan[j] = arrPesanan[j + 1]; // Geser elemen
+                            array.arrPesanan[j] = array.arrPesanan[j + 1];
                         }
-                        arrPesanan[arrPesananCounter] = ""; // Kosongkan elemen terakhir
-                        arrPesananCounter--; // Kurangi counter
-                        i--; // Ulangi loop dari elemen yang dihapus
+                        array.arrPesanan[arrPesananCounter] = "";
+                        arrPesananCounter--;
+                        i--;
                     }
                 }
 
                 // Jika pesanan ditemukan dan dihapus
-                if (found) {
+                if (ketemu) {
                     // Menghapus label booking pada kamar
-                    for (int i = 0; i < arrOwnerKamar.length; i++) {
-                        if (arrOwnerKamar[i].equals(pNama)) {
+                    for (int i = 0; i < array.arrOwnerKamar.length; i++) {
+                        if (array.arrOwnerKamar[i].equals(pNama)) {
                             tempStr = Integer.toString(i + 1);
-                            arrKamar[i] = tempStr; // Set kamar kembali ke nomor aslinya
-                            arrOwnerKamar[i] = ""; // Kosongkan pemilik kamar
+                            array.arrKamar[i] = tempStr;
+                            array.arrOwnerKamar[i] = ""; 
                         }
                     }
                     System.out.println("Reservasi atas nama " + pNama + " berhasil dihapus.");
@@ -69,7 +66,7 @@ public class Admin extends Customer {
                 System.out.println("Penghapusan dibatalkan.");
             }
         } else {
-            System.out.println("Tidak ada reservasi yang aktif.");
+            System.out.println("Tidak ada reservasi.");
         }
         status = false; // Reset status setelah selesai
     }
