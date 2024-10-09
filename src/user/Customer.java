@@ -10,7 +10,6 @@ boolean status = false;
 String tempStr, noKamar;
 
 Array array;
-
     public Customer(Array arr) {
         this.array = arr;
     }
@@ -42,13 +41,13 @@ Scanner scanner = new Scanner(System.in);
     counter = 0;
 
     // Menentukan nomor kamar
-    while (counter < pIntKamar) {  // Loop sampai jumlah kamar yang dipesan terpenuhi
+    while (counter < pIntKamar) { 
         cekKamar();
         System.out.println("Masukan Nomor Kamar yang ingin anda pesan");
         System.out.print("Input = ");
         tempInt = scanner.nextInt();
         scanner.nextLine();
-        tempInt--;  // Sesuaikan nomor kamar dengan indeks array (mulai dari 0)
+        tempInt--; 
 
         if (array.arrKamar[tempInt].equals("BOOKED")) {
             System.out.println("Maaf, nomor kamar yang Anda inginkan tidak tersedia saat ini.");
@@ -91,6 +90,7 @@ Scanner scanner = new Scanner(System.in);
         }
     
     
+        // melihat nomor dan kondisi kamar hotel
 @Override
     public void cekKamar(){
         System.out.println("\tDaftar Nomor Kamar Hotel\n");
@@ -103,6 +103,8 @@ Scanner scanner = new Scanner(System.in);
             System.out.println("");
         }
     }
+    
+    
 @Override
     public void detilPesanan(){
             System.out.println("\tDetil Reservasi\n");

@@ -8,6 +8,7 @@ public class Admin extends Customer {
         super(arr);
     }
     
+    // melihat semua reservasi customer
     @Override
     public void detilPesanan() {
         System.out.println("\tDetil Pesanan\n");
@@ -18,6 +19,7 @@ public class Admin extends Customer {
         }
     }
 
+    // menghapus data reservasi pada array
     public void hapusPesanan() {
         System.out.println("\tHapus Reservasi");
         System.out.println("Masukan Nama Customer.");

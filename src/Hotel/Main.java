@@ -27,6 +27,7 @@ public class Main {
         System.out.println("3. Periksa Detil Reservasi.");
     }
 
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Array array = new Array();
@@ -35,9 +36,11 @@ public class Main {
         
         int pilihan = 0;
         
+        // mengisi value default array
         customer.resetKamar();
-        admin.resetKamar(); // mengisi value default array
+        admin.resetKamar();
         
+        // pilihan akses user
         while (pilihan != 1 && pilihan != 2) {
             System.out.println("Masuk sebagai:");
             System.out.println("1. Admin");
@@ -53,6 +56,7 @@ public class Main {
             
         Main main = new Main(pilihan);
 
+        // akses admin
         if (main.administrator) {
             System.out.println("Anda masuk sebagai Admin");
             while(pilihan != 0){
@@ -88,7 +92,7 @@ public class Main {
             }
         }
             
-            
+         // akses customer   
         } else if (main.customer == true) {
             System.out.println("Anda masuk sebagai Customer");
             
